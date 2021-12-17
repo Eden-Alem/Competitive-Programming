@@ -1,6 +1,9 @@
+from typing import Collection
+
+
 class Solution:
-    def maxOperations(self, nums: List[int], k: int) -> int:
-        frequencyDict = Counter(nums)
+    def maxOperations(self, nums, k: int) -> int:
+        frequencyDict = Collection.Counter(nums)
 
         count = 0
         for num in frequencyDict.keys():

@@ -19,3 +19,22 @@ class Solution(object):
             return False
             
 print(Solution().isValid("[{)}]()"))
+
+# Using dictionary instead of lists
+def isValidParentheses(parentheses):
+    paren = {"[":"]", "{":"}", "(":")"}
+    checker = []
+    for i in range(len(parentheses)):
+        if parentheses[i] in paren.keys():
+            checker.append(parentheses[i])
+        else:
+            if (len(checker) == 0):
+                    return False
+            if (parentheses[i] == paren[checker[-1]]):
+                checker.pop()
+            else:
+                return False
+    if (len(checker) == 0):
+        return True
+    else:
+        return False

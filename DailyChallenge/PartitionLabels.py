@@ -1,5 +1,5 @@
 class Solution:
-    def partitionLabels(self, s: str) -> List[int]:
+    def partitionLabels(self, s: str):
         lastIndex = dict()
         for i in range(len(s)):
             lastIndex[s[i]] = i

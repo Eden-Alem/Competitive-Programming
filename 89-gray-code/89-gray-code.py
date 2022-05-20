@@ -1,25 +1,27 @@
-class Solution:    
+class Solution:
     def grayCode(self, n: int) -> List[int]:
         result = [0]
-        self.checker(n, set([0]), 0, result)
+        self.checkSequence(n, result, 0, set([0]))
         return result
         
-    def checker(self, n, visited, curr, result):
+    def checkSequence(self, n, result, curr, visited):
         if len(result) == 2**n:
             return True
         
+        
         for i in range(n):            
-            nextFlip = curr ^ (1 << i)
+            val = curr ^ (1 << i)
             
-            if nextFlip not in visited:
-                visited.add(nextFlip)
-                result.append(nextFlip)
-                if self.checker(n, visited, nextFlip, result):
+            if val not in visited:
+                visited.add(val)
+                result.append(val)
+                
+                if self.checkSequence(n, result, val, visited):
                     return True
                 
-                visited.remove(nextFlip)
+                visited.remove(val)
                 result.pop()
                 
         return False
         
-        
+                

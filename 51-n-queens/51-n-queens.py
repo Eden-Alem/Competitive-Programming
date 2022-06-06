@@ -1,21 +1,33 @@
 class Solution:
+    def __init__(self):
+        self.result = []
+        
     def solveNQueens(self, n: int) -> List[List[str]]:
-        result, columns, leftDiag, rightDiag = [], set(), set(), set()
-		
-        def backtrack(r, pos): 
-            if r == n:
-                result.append(['.' * i + 'Q' + '.' * (n - i - 1) for i in pos])
+        cols, posDiag, negDiag = set(), set(), set()
+        
+        chessBoard = [["."]*n for _ in range(n)]
+        def backtrack(row):
+            if row == n:
+                self.result.append(["".join(r) for r in chessBoard])
                 return
-            for c in range(n):
-                if not c in columns and not r - c in leftDiag and not r + c in rightDiag:
-                    columns.add(c)
-                    leftDiag.add(r - c)
-                    rightDiag.add(r + c)
-                    backtrack(r + 1, pos + [c])
-                    columns.remove(c)
-                    leftDiag.remove(r - c)
-                    rightDiag.remove(r + c)
             
-        backtrack(0, [])
-        return result
+            for col in range(n):
+                if col in cols or (row+col) in posDiag or (row-col) in negDiag:
+                    continue
+                    
+                cols.add(col)
+                posDiag.add(row+col)
+                negDiag.add(row-col)
+                chessBoard[row][col] = "Q"
+                
+                backtrack(row+1)
+                
+                cols.remove(col)
+                posDiag.remove(row+col)
+                negDiag.remove(row-col)
+                chessBoard[row][col] = "."
+                
+        backtrack(0)
+        return self.result
+        
         

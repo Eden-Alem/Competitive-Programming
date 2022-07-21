@@ -10,12 +10,20 @@
 
 class Solution:
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        visited = set()
-        while head:
-            if head in visited:
-                return head
-            visited.add(head)
-            head = head.next
+        slow = fast = head
+        
+        while fast and fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+            if slow == fast:
+                slow = head
+                
+                while slow != fast:
+                    slow = slow.next
+                    fast = fast.next
+                
+                return slow
             
         return None
                 

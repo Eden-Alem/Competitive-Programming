@@ -16,9 +16,7 @@
 # /1
 
 # time complexity O(n)
-# space complexity O(n-1)
-
-# count = 3
+# space complexity O(1)
 
 # Base case: 1, n.val/1
 # Return values: No, Sum

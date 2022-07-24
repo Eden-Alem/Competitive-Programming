@@ -20,8 +20,8 @@ class Solution:
         if (node.val >= low and node.val <= high):
             self.Sum += node.val
         
-        leftVal = self.inRange(node.left, low, high)
-        rightVal = self.inRange(node.right, low, high)
+        self.inRange(node.left, low, high)
+        self.inRange(node.right, low, high)
             
         return node.val
         

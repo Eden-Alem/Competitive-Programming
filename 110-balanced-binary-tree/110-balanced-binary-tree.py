@@ -10,7 +10,7 @@ class Solution:
         
     def check_balanced(self, node):
         if not node:
-            return (True, 0)
+            return (True, -1)
         
         left = self.check_balanced(node.left)
         right = self.check_balanced(node.right)

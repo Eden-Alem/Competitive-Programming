@@ -28,7 +28,7 @@
 
 # m < n
 
-# O(E) + O(n*m)
+# (O(e) + O(n)) * O(m)
 
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:

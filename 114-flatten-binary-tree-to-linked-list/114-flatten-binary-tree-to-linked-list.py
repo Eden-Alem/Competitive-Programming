@@ -35,14 +35,18 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
+        
+        self.helper(root)
+        
+    def helper(self, root):
         if not root:
             return None
         
         if not root.right and not root.left:
             return root
         
-        leftTail = self.flatten(root.left)
-        rightTail = self.flatten(root.right)
+        leftTail = self.helper(root.left)
+        rightTail = self.helper(root.right)
         
         if root.left:
             temp = root.right

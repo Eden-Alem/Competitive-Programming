@@ -1,49 +1,44 @@
 class Solution:
-    def __init__(self):
-        self.visited = set()
-        
     def shortestAlternatingPaths(self, n: int, redEdges: List[List[int]], blueEdges: List[List[int]]) -> List[int]:
-        self.redPath = defaultdict(list)
-        self.bluePath = defaultdict(list)
+        self.red = defaultdict(list)
+        self.blue = defaultdict(list)
         
-        for a, b in redEdges:
-            self.redPath[a].append(b)
-        
-        for a, b in blueEdges:
-            self.bluePath[a].append(b)
+        for s, d in redEdges:
+            self.red[s].append(d)
             
-        self.ansB = [0] + [float("inf")] * (n-1)
-        self.ansR = [0] + [float("inf")] * (n-1)
-        self.shortestPath(0, 'red', 0)
-        self.shortestPath(0, 'blue', 0)
+        for s, d in blueEdges:
+            self.blue[s].append(d)
+            
+        result = [float("inf")] * n
         
-        ans = [0] + [float("inf")] * (n-1)
+        self.resultR = [float("inf")] * n
+        self.resultB = [float("inf")] * n
         
-        for a in range(len(ans)):
-            ans[a] = min(self.ansB[a], self.ansR[a])
+        self.shortestPath(0, "red", 0)
+        self.shortestPath(0, "blue", 0)
         
-
-        return list(map(lambda x: x if x!=float('inf') else -1, ans))
+        for i in range(n):
+            result[i] = min(self.resultR[i], self.resultB[i])
+            
+        return list(map(lambda x:x if x!=float("inf") else -1, result))
+            
+        
         
     def shortestPath(self, node, color, level):
         neigh = []
-        ans = []
-        
-        if color == 'red':
-            self.ansR[node] = level
-            neigh = self.redPath[node]
+        if color == "red":
+            self.resultR[node] = level
+            neigh = self.red[node]
         else:
-            self.ansB[node] = level
-            neigh = self.bluePath[node]
-        
-        newColor = 'red' if color == 'blue' else 'blue'
-        
-        if newColor == 'red':
-            ans = self.ansR
-        else:
-            ans = self.ansB
+            self.resultB[node] = level
+            neigh = self.blue[node]
             
-        for n in neigh: 
-            if level < ans[n]:
+        newColor = "red" if color == "blue" else "blue"
+        
+        result = []
+        result = self.resultR if newColor == "red" else self.resultB
+        
+        for n in neigh:
+            if level < result[n]:
                 self.shortestPath(n, newColor, level+1)
-                
+        

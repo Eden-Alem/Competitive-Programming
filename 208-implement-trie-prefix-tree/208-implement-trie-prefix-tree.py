@@ -33,6 +33,35 @@ class Trie:
             root = root.children[ord(w)-ord("a")]
             
         return True
+    
+    def delete(self, word):
+        root = self
+        prev = []
+        
+        for w in word:
+            if not root.children[ord(w)-ord("a")]:
+                pass
+            
+            prev.append((root, ord(w)-ord("a")))
+            root = root.children[ord(w)-ord("a")]
+        
+        root.endOfWord = False
+        
+        while prev:
+            child = prev.pop()
+            parent, childIndex = prev[-1]            
+            
+            count = 0
+            for i in range(26):
+                if child.children[i]:
+                    count+=1
+                if count>=2:
+                    break
+                    
+            if count == 0:
+                parent.children[childIndex] = None
+                
+            
 
 
 # Your Trie object will be instantiated and called as such:

@@ -1,13 +1,11 @@
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
-        freq = {}
+        frequency = {}
         
-        for n in nums:
-            freq[n] = (freq.get(n, 0) + 1)
-            
-        for val in list(freq.values()):
-            if val >= 2:
+        for num in nums:
+            if (num in frequency.keys()):
                 return True
+            else:
+                frequency[num] = frequency.get(num, 0) + 1
             
-        
         return False

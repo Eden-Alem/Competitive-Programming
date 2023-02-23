@@ -5,7 +5,7 @@ class Solution:
         m = len(grid[0])
         visited = set()
         
-        
+        in_bound = lambda new_row, new_col: new_row < 0 or new_row >= n or new_col < 0 or new_col >= m
         
         def dfs(row, col):
             visited.add((row, col))
@@ -13,7 +13,7 @@ class Solution:
                 new_row = row + direction[0]
                 new_col = col + direction[1]
                 
-                if new_row < 0 or new_row >= n or new_col < 0 or new_col >= m:
+                if in_bound(new_row, new_col):
                     continue
                     
                 if (new_row, new_col) not in visited and grid[new_row][new_col] == "1":

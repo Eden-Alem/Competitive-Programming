@@ -4,22 +4,23 @@ class Solution:
         digits = []
         
         for log in logs:
-            if log[-1].isdigit():
+            list_log = log.split(" ")
+            if list_log[1].isdigit():
                 digits.append(log)
             else:
-                letters.append(log)
-                
-        sortedLetters = []
-        for letter in letters:
-            index = letter.index(" ")
-            sortedLetters.append((letter[index+1:], letter[:index]))
-            
-        sortedLetters.sort()
+                letters.append(([list_log[0]], list_log[1:]))
+        
+        sorted_letters = sorted(letters, key=lambda x:(x[1],x[0]))
+        
         result = []
-        for sl in sortedLetters:
-            result.append(sl[1] + " " + sl[0])
+        
+        for identifier, letter in sorted_letters:
+            identifier.extend(letter)
+            result.append(" ".join(identifier))
             
         result.extend(digits)
         
         return result
+        
+        
         

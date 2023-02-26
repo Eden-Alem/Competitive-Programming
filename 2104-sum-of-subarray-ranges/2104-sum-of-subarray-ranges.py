@@ -1,18 +1,17 @@
 class Solution:
     def subArrayRanges(self, nums: List[int]) -> int:
-        N = len(nums)
+        n = len(nums)
         result = 0
         
-        for i in range(N):
-            minVal = nums[i]
-            maxVal = nums[i]
+        for i in range(n):
+            min_val = nums[i]
+            max_val = nums[i]
             
-            for j in range(i+1, N):
-                minVal = min(minVal, nums[j])
-                maxVal = max(maxVal, nums[j])
+            for j in range(i+1, n):
+                min_val = min(min_val, nums[j])
+                max_val = max(max_val, nums[j])
                 
-                result += (maxVal - minVal)
+                result += (max_val - min_val)
                 
         return result
-                
-            
+        

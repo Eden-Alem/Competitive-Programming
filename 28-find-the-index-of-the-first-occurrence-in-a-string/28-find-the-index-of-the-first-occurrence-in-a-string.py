@@ -3,8 +3,11 @@ class Solution:
         if not needle:
             return 0
         
-        for i in range(len(haystack) - len(needle) + 1):
-            if haystack[i:i+len(needle)] == needle:
+        needle_len = len(needle)
+        hay_len = len(haystack)
+        
+        for i in range(hay_len - needle_len + 1):
+            if haystack[i:i+needle_len] == needle:
                 return i
             
         return -1

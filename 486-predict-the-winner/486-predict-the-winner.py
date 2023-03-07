@@ -1,39 +1,43 @@
 class Solution:
     def PredictTheWinner(self, nums: List[int]) -> bool:
-        scores = self.compute(nums, True)
+        scores = self.game(nums, True)
         return scores[0] >= scores[1]
         
-    def compute(self, nums, turn):
-        if (len(nums) == 0):
-            return (0,0)
-
-        if (len(nums) == 1):
-            if (turn): return (nums[0], 0)
-            return (0, nums[0])
-
-        if (turn):
-            x = nums[0]
-            (t1, t2) = self.compute(nums[1:], not turn)
-
-            y = nums[-1]
-            (p1, p2) = self.compute(nums[:-1], not turn)
-
-            if (t1 + x > p1 + y):
-                return (t1 + x, t2)
-            return (p1 + y,p2)
-
-        else:
-            x = nums[0]
-            (t1, t2) = self.compute(nums[1:], not turn)
-
-            y = nums[-1]
-            (p1, p2) = self.compute(nums[:-1], not turn)        
-
-            if (t2 + x > p2 + y):
-                return (t1, t2 + x)
-            return (p1, p2 + y)
-
-
-
-    
+    def game(self, nums, turn):
+        if len(nums) == 0:
+            return (0, 0)
         
+        if len(nums) == 1:
+            if turn:
+                return (nums[0], 0)
+            return (0, nums[0])
+        
+        if turn:
+            first = nums[0]
+            pf1, pf2 = self.game(nums[1:], not turn)
+            
+            
+            last = nums[-1]
+            pl1, pl2 = self.game(nums[:-1], not turn)
+            
+            if (first + pf1 > last + pl1):
+                return (first+pf1, pf2)
+            
+            return (last+pl1, pl2)
+            
+        else:
+            first = nums[0]
+            pf1, pf2 = self.game(nums[1:], not turn)
+            
+            last = nums[-1]
+            pl1, pl2 = self.game(nums[:-1], not turn)
+            
+            if (first + pf2 > last + pl2):
+                return (pf1, pf2 + first)
+            
+            return (pl1, pl2 + last)
+                
+            
+                
+                
+                

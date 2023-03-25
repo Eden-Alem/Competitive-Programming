@@ -4,14 +4,13 @@ class Solution:
         
         result = [intervals[0]]
         
-        for start, end in intervals[1:]:
-            last_end = result[-1][1]
+        for s, e in intervals[1:]:
+            prev_e = result[-1][1]
             
-            if start <= last_end:
-                result[-1][1] = max(last_end, end)
+            if s <= prev_e:
+                result[-1][1] = max(prev_e, e)
                 
             else:
-                result.append([start, end])
+                result.append([s, e])
                 
         return result
-                

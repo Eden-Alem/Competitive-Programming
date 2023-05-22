@@ -1,10 +1,15 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        freq = Counter(nums)
+        ones = 0
+        twos = 0
         
-        for num in freq:
-            if freq[num] == 1:
-                return num
+        for num in nums:
+            ones ^= num
+            ones &= (~twos)
             
+            twos ^= num
+            twos &= (~ones)
+            
+        return ones
             
         
